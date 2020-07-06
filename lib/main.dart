@@ -25,11 +25,7 @@ class MyAppState extends State<MyApp> {
   Location _location = new Location();
   String error;
 
-  get dataMap => _location;
-
-  get location => _location;
-
-  set location(Future<LocationData> Function() location) {}
+  set location(Map<String, double> Function() location) {}
 
   @override
   void initState() {
@@ -102,9 +98,11 @@ class MyAppState extends State<MyApp> {
       isLoading = true;
     });
 
-    LocationData.fromMap(await location);
+    Map<String, double> location;
+
     try {
-      location = _location.getLocation;
+      location = (_location.getLocation) as Map<String, double>;
+
 
       error = null;
     } on PlatformException catch (e) {
@@ -122,9 +120,9 @@ class MyAppState extends State<MyApp> {
       final lon = location['longitude'];
 
       final weatherResponse = await http.get(
-          'https://api.openweathermap.org/data/2.5/weather?APPID=0721392c0ba0af8c410aa9394defa29e&lat=${lat.toString()}&lon=${lon.toString()}');
+          'https://api.openweathermap.org/data/2.5/weather?APPID=d89de3f0b2dedfe4f923f1e7f709953a&lat=${lat.toString()}&lon=${lon.toString()}');
       final forecastResponse = await http.get(
-          'https://api.openweathermap.org/data/2.5/forecast?APPID=0721392c0ba0af8c410aa9394defa29e&lat=${lat.toString()}&lon=${lon.toString()}');
+          'https://api.openweathermap.org/data/2.5/forecast?APPID=d89de3f0b2dedfe4f923f1e7f709953a&lat=${lat.toString()}&lon=${lon.toString()}');
 
       if (weatherResponse.statusCode == 200 &&
           forecastResponse.statusCode == 200) {
