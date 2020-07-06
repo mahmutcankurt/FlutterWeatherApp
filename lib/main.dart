@@ -31,6 +31,9 @@ class MyAppState extends State<MyApp> {
 
     loadWeather();
   }
+  Future<LocationData> getLocationData() async{
+    return await _location.getLocation();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +101,7 @@ class MyAppState extends State<MyApp> {
 
 LocationData location;
     try {
-      location = (await _location.getLocation);
+      location = await getLocationData();
       
 
 
