@@ -25,8 +25,6 @@ class MyAppState extends State<MyApp> {
   Location _location = new Location();
   String error;
 
-  set location(Map<String, double> Function() location) {}
-
   @override
   void initState() {
     super.initState();
@@ -98,10 +96,10 @@ class MyAppState extends State<MyApp> {
       isLoading = true;
     });
 
-    Map<String, double> location;
-
+LocationData location;
     try {
-      location = (_location.getLocation) as Map<String, double>;
+      location = (await _location.getLocation);
+      
 
 
       error = null;
@@ -116,8 +114,8 @@ class MyAppState extends State<MyApp> {
     }
 
     if (location != null) {
-      final lat = location['latitude'];
-      final lon = location['longitude'];
+      final lat = location.latitude;
+      final lon = location.longitude;
 
       final weatherResponse = await http.get(
           'https://api.openweathermap.org/data/2.5/weather?APPID=d89de3f0b2dedfe4f923f1e7f709953a&lat=${lat.toString()}&lon=${lon.toString()}');
