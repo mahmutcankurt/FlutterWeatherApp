@@ -25,6 +25,12 @@ class MyAppState extends State<MyApp> {
   Location _location = new Location();
   String error;
 
+  get dataMap => _location;
+
+  get location => _location;
+
+  set location(Future<LocationData> Function() location) {}
+
   @override
   void initState() {
     super.initState();
@@ -96,9 +102,9 @@ class MyAppState extends State<MyApp> {
       isLoading = true;
     });
 
-    Map<String, double> location;
+    LocationData.fromMap(await location);
     try {
-      location = await _location.getLocation;
+      location = _location.getLocation;
 
       error = null;
     } on PlatformException catch (e) {
