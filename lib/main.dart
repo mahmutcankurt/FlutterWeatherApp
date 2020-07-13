@@ -9,7 +9,12 @@ import 'package:uygulama1/WeatherItem.dart';
 import 'package:uygulama1/WeatherData.dart';
 import 'package:uygulama1/ForecastData.dart';
 
-void main() => runApp(new MyApp());
+void main() {
+ runApp(MaterialApp(
+   title: "WeatherApp",
+   home: MyApp(),
+ ));
+}
 
 class MyApp extends StatefulWidget {
   @override
@@ -74,6 +79,19 @@ class MyAppState extends State<MyApp> {
                             onPressed: loadWeather,
                             color: Colors.black,
                           ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: RaisedButton(
+                        child: Text("Open Route"),
+                        onPressed: () =>
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SecondRoute()
+                                  )
+                                  )
+                        ),
                   ),
                 ],
               ),
@@ -157,7 +175,7 @@ class SecondRoute extends StatelessWidget {
           onPressed: () {
             Navigator.pop(context);
           },
-          child: Text("Go Back!"),
+          child: Text('Go back!'),
         ),
       ),
     );
