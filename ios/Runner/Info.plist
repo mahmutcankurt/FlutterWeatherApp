@@ -45,5 +45,6 @@
 	<string>This app needs access to location when open.</string>
    <key>NSLocationAlwaysUsageDescription</key>
    <string>We need your location to show the weather</string>
+   
 </dict>
 </plist>

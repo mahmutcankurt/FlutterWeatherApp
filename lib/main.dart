@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:location/location.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong/latlong.dart';
 
 import 'package:uygulama1/Weather.dart';
 import 'package:uygulama1/WeatherItem.dart';
@@ -166,18 +168,34 @@ class MyAppState extends State<MyApp> {
 class SecondRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Second Route"),
+    return new FlutterMap(
+    options: new MapOptions(
+      center: new LatLng(51.5, -0.09),
+      zoom: 13.0,
+    ),
+    layers: [
+      new TileLayerOptions(
+        urlTemplate: "https://api.mapbox.com/styles/v1/mahmutcankurt/cjl1bndoi2na42sp2pfh2483p/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoibWFobXV0Y2Fua3VydCIsImEiOiJja2NrZ2lseTYwNmdwMnNyenVrZnYxYW4zIn0.KDcHWGT3kj16csFFJF5TiA",
+        additionalOptions: {
+                    'accessToken':
+                        'pk.eyJ1IjoibWFobXV0Y2Fua3VydCIsImEiOiJja2NrZ2lseTYwNmdwMnNyenVrZnYxYW4zIn0.KDcHWGT3kj16csFFJF5TiA',
+                    'id': 'mapbox.mapbox-streets-v7'
+                  }
       ),
-      body: Center(
-        child: RaisedButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: Text('Go back!'),
-        ),
+      new MarkerLayerOptions(
+        markers: [
+          new Marker(
+            width: 80.0,
+            height: 80.0,
+            point: new LatLng(51.5, -0.09),
+            builder: (ctx) =>
+            new Container(
+              child: new FlutterLogo(),
+            ),
+          ),
+        ],
       ),
-    );
+    ],
+  );
   }
 }
