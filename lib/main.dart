@@ -12,10 +12,10 @@ import 'package:uygulama1/WeatherData.dart';
 import 'package:uygulama1/ForecastData.dart';
 
 void main() {
- runApp(MaterialApp(
-   title: "WeatherApp",
-   home: MyApp(),
- ));
+  runApp(MaterialApp(
+    title: "WeatherApp",
+    home: MyApp(),
+  ));
 }
 
 class MyApp extends StatefulWidget {
@@ -86,14 +86,10 @@ class MyAppState extends State<MyApp> {
                     padding: const EdgeInsets.all(8.0),
                     child: RaisedButton(
                         child: Text("Open Route"),
-                        onPressed: () =>
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SecondRoute()
-                                  )
-                                  )
-                        ),
+                        onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SecondRoute()))),
                   ),
                 ],
               ),
@@ -169,33 +165,49 @@ class SecondRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new FlutterMap(
-    options: new MapOptions(
-      center: new LatLng(51.5, -0.09),
-      zoom: 13.0,
-    ),
-    layers: [
-      new TileLayerOptions(
-        urlTemplate: "https://api.mapbox.com/styles/v1/mahmutcankurt/cjl1bndoi2na42sp2pfh2483p/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoibWFobXV0Y2Fua3VydCIsImEiOiJja2NrZ2lseTYwNmdwMnNyenVrZnYxYW4zIn0.KDcHWGT3kj16csFFJF5TiA",
-        additionalOptions: {
-                    'accessToken':
-                        'pk.eyJ1IjoibWFobXV0Y2Fua3VydCIsImEiOiJja2NrZ2lseTYwNmdwMnNyenVrZnYxYW4zIn0.KDcHWGT3kj16csFFJF5TiA',
-                    'id': 'mapbox.mapbox-streets-v7'
-                  }
+      options: new MapOptions(
+        center: new LatLng(51.5, -0.09),
+        zoom: 13.0,
       ),
-      new MarkerLayerOptions(
-        markers: [
-          new Marker(
-            width: 80.0,
-            height: 80.0,
-            point: new LatLng(51.5, -0.09),
-            builder: (ctx) =>
-            new Container(
-              child: new FlutterLogo(),
+      layers: [
+        new TileLayerOptions(
+            urlTemplate:
+                "https://api.mapbox.com/styles/v1/mahmutcankurt/ckckgily606gp2srzukfv1an3/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoibWFobXV0Y2Fua3VydCIsImEiOiJja2NrZ2lseTYwNmdwMnNyenVrZnYxYW4zIn0.KDcHWGT3kj16csFFJF5TiA",
+            additionalOptions: {
+              'accessToken':
+                  'pk.eyJ1IjoibWFobXV0Y2Fua3VydCIsImEiOiJja2NrZ2lseTYwNmdwMnNyenVrZnYxYW4zIn0.KDcHWGT3kj16csFFJF5TiA',
+              'id': 'mapbox.mapbox-streets-v7'
+            }),
+        new MarkerLayerOptions(
+          markers: [
+            new Marker(
+              width: 80.0,
+              height: 80.0,
+              point: new LatLng(51.5, -0.09),
+              builder: (ctx) => new Container(
+                child: IconButton(
+                            icon: Icon(Icons.location_on),
+                            color: Colors.blue,
+                            iconSize: 45.0,
+                            onPressed: () {
+                              print('Marker tapped');
+                            },
+                          ),
+              ),
             ),
-          ),
-        ],
-      ),
-    ],
-  );
+          ],
+        ),
+      ],
+    );
   }
 }
+
+/*
+https://medium.com/@mustafazahidefe/git-notları-5-branch-kavramı-d176626711a4
+https://aliozgur.gitbooks.io/git101/content/branching_dallanma_ve_merging_birlestirme/degisiklikleri_merge_etmek.html
+https://pub.dev/packages/mapbox_gl
+https://account.mapbox.com/access-tokens/ckckgily606gp2srzukfv1an3
+http://tphangout.com/flutter-mapbox-and-polylines/
+https://github.com/mapbox/flutter-mapbox-gl
+https://pub.dev/packages/flutter_map
+*/ 
