@@ -185,7 +185,13 @@ class SecondRoute extends StatelessWidget {
               width: 80.0,
               height: 80.0,
               point: new LatLng(51.5, -0.09),
-              builder: (context) => new Container(child: FlutterLogo()),
+              builder: (context) => new Container(
+                          child: RaisedButton(
+                            color: Colors.blue,
+                            onPressed: () {
+                              print('Marker tapped');
+                            },
+                          ),),
             ),
           ],
         ),

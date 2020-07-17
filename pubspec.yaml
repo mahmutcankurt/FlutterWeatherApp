@@ -27,7 +27,6 @@ dependencies:
   intl: ^0.15.6
   location: ^3.0.0
   flutter_map: ^0.10.1
-  mapbox_gl: ^0.7.0
 
 
   # The following adds the Cupertino Icons font to your application.

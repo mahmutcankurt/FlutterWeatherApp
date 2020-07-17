@@ -47,8 +47,6 @@
    <string>We need your location to show the weather</string>
    <key>io.flutter.embedded_views_preview</key>
 	<true/>
-	<key>MGLMapboxAccessToken</key>
-	<string>pk.eyJ1IjoibWFobXV0Y2Fua3VydCIsImEiOiJja2NrZ2lseTYwNmdwMnNyenVrZnYxYW4zIn0.KDcHWGT3kj16csFFJF5TiA</string>
    
 </dict>
 </plist>
