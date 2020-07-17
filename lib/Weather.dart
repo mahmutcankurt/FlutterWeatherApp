@@ -10,14 +10,19 @@ class Weather extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var temperature = (weather.temp - 273.15).round();
     return Column(
       children: <Widget>[
         Text(weather.name, style: new TextStyle(color: Colors.black)),
-        Text(weather.main, style: new TextStyle(color: Colors.black, fontSize: 32.0)),
-        Text('${weather.temp.toString()}°F',  style: new TextStyle(color: Colors.black)),
+        Text(weather.main,
+            style: new TextStyle(color: Colors.black, fontSize: 32.0)),
+        Text('${temperature.toString()}°C',
+            style: new TextStyle(color: Colors.black)),
         Image.network('https://openweathermap.org/img/w/${weather.icon}.png'),
-        Text(new DateFormat.yMMMd().format(weather.date), style: new TextStyle(color: Colors.black)),
-        Text(new DateFormat.Hm().format(weather.date), style: new TextStyle(color: Colors.black)),
+        Text(new DateFormat.yMMMd().format(weather.date),
+            style: new TextStyle(color: Colors.black)),
+        Text(new DateFormat.Hm().format(weather.date),
+            style: new TextStyle(color: Colors.black)),
       ],
     );
   }

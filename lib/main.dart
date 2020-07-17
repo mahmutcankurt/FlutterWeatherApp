@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
 
+
 import 'package:uygulama1/Weather.dart';
 import 'package:uygulama1/WeatherItem.dart';
 import 'package:uygulama1/WeatherData.dart';
@@ -184,16 +185,7 @@ class SecondRoute extends StatelessWidget {
               width: 80.0,
               height: 80.0,
               point: new LatLng(51.5, -0.09),
-              builder: (ctx) => new Container(
-                child: IconButton(
-                            icon: Icon(Icons.location_on),
-                            color: Colors.blue,
-                            iconSize: 45.0,
-                            onPressed: () {
-                              print('Marker tapped');
-                            },
-                          ),
-              ),
+              builder: (context) => new Container(child: FlutterLogo()),
             ),
           ],
         ),
@@ -210,4 +202,4 @@ https://account.mapbox.com/access-tokens/ckckgily606gp2srzukfv1an3
 http://tphangout.com/flutter-mapbox-and-polylines/
 https://github.com/mapbox/flutter-mapbox-gl
 https://pub.dev/packages/flutter_map
-*/ 
+*/
