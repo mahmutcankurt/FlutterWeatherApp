@@ -86,7 +86,7 @@ class MyAppState extends State<MyApp> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: RaisedButton(
-                        child: Text("Open Route"),
+                        child: Text("Choose Your City"),
                         onPressed: () => Navigator.push(
                             context,
                             MaterialPageRoute(
