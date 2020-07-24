@@ -1,3 +1,4 @@
+//IMPORT EDİLEN FLUTTER PAKETLERİ VE KÜTÜPHANELER
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -6,12 +7,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
 
-
+//IMPORT EDİLEN KENDİ OLUŞTURDUĞUM CLASS'LAR
 import 'package:uygulama1/Weather.dart';
 import 'package:uygulama1/WeatherItem.dart';
 import 'package:uygulama1/WeatherData.dart';
 import 'package:uygulama1/ForecastData.dart';
 
+//PROJECT'S ROOT
 void main() {
   runApp(MaterialApp(
     title: "WeatherApp",
@@ -19,6 +21,7 @@ void main() {
   ));
 }
 
+//PROJECTS MAIN CLASS
 class MyApp extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -186,12 +189,13 @@ class SecondRoute extends StatelessWidget {
               height: 80.0,
               point: new LatLng(51.5, -0.09),
               builder: (context) => new Container(
-                          child: RaisedButton(
-                            color: Colors.blue,
-                            onPressed: () {
-                              print('Marker tapped');
-                            },
-                          ),),
+                child: RaisedButton(
+                  color: Colors.blue,
+                  onPressed: () {
+                    print('Marker tapped');
+                  },
+                ),
+              ),
             ),
           ],
         ),
