@@ -36,8 +36,7 @@ class MyApp extends StatefulWidget {
   
 }
 
-
-abstract class MyAppState extends State<MyApp> {
+class MyAppState extends State<MyApp> {
   bool isLoading = false;
   WeatherData weatherData;
   ForecastData forecastData;
@@ -49,9 +48,7 @@ abstract class MyAppState extends State<MyApp> {
 
     loadWeather();
   }
-  
-  // ignore: non_constant_identifier_names
-  print(WeatherData);
+
 
   Future<LocationData> getLocationData() async {
     return await _location.getLocation();
