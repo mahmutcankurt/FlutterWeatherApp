@@ -23,6 +23,7 @@ void main() {
   runApp(MaterialApp(
     title: "WeatherApp",
     home: MyApp(),
+    
   ));
 }
 
@@ -32,9 +33,11 @@ class MyApp extends StatefulWidget {
   State<StatefulWidget> createState() {
     return new MyAppState();
   }
+  
 }
 
-class MyAppState extends State<MyApp> {
+
+abstract class MyAppState extends State<MyApp> {
   bool isLoading = false;
   WeatherData weatherData;
   ForecastData forecastData;
@@ -46,6 +49,9 @@ class MyAppState extends State<MyApp> {
 
     loadWeather();
   }
+  
+  // ignore: non_constant_identifier_names
+  print(WeatherData);
 
   Future<LocationData> getLocationData() async {
     return await _location.getLocation();
@@ -55,6 +61,8 @@ class MyAppState extends State<MyApp> {
     "rain": AssetImage("assets/images/rain.jpg"),
     "clear": AssetImage("assets/images/clear.jpg"),
   };
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -177,6 +185,7 @@ class MyAppState extends State<MyApp> {
     });
   }
 }
+
 
 /*
 https://medium.com/@mustafazahidefe/git-notları-5-branch-kavramı-d176626711a4
