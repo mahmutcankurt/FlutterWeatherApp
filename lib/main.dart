@@ -4,8 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:location/location.dart';
 import 'package:flutter/services.dart';
+
+/*
+
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
+
+*/
 
 //IMPORT EDİLEN KENDİ OLUŞTURDUĞUM CLASS'LAR
 import 'package:uygulama1/Weather.dart';
@@ -35,7 +40,6 @@ class MyAppState extends State<MyApp> {
   ForecastData forecastData;
   Location _location = new Location();
   String error;
-
   @override
   void initState() {
     super.initState();
@@ -47,6 +51,11 @@ class MyAppState extends State<MyApp> {
     return await _location.getLocation();
   }
 
+  final Map<String, AssetImage> images = {
+    "rain": AssetImage("assets/images/rain.jpg"),
+    "clear": AssetImage("assets/images/clear.jpg"),
+  };
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -55,12 +64,25 @@ class MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
       ),
       home: Scaffold(
-          backgroundColor: Colors.lightBlue[100],
+          backgroundColor: Colors.tealAccent,
           appBar: AppBar(
             title: Text('Flutter Weather App'),
           ),
           body: Center(
               child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+            //BACKGROUND IMAGE
+
+            Container(
+              decoration: BoxDecoration(
+                image: new DecorationImage(
+                    image: weatherData == null
+                        ? images["clear"]
+                        : images[weatherData.name],
+                    fit: BoxFit.cover),
+              ),
+            ),
+            //END
+
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -85,15 +107,6 @@ class MyAppState extends State<MyApp> {
                             onPressed: loadWeather,
                             color: Colors.black,
                           ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: RaisedButton(
-                        child: Text("Choose Your City"),
-                        onPressed: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SecondRoute()))),
                   ),
                 ],
               ),
@@ -162,45 +175,6 @@ class MyAppState extends State<MyApp> {
     setState(() {
       isLoading = false;
     });
-  }
-}
-
-class SecondRoute extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return new FlutterMap(
-      options: new MapOptions(
-        center: new LatLng(51.5, -0.09),
-        zoom: 13.0,
-      ),
-      layers: [
-        new TileLayerOptions(
-            urlTemplate:
-                "https://api.mapbox.com/styles/v1/mahmutcankurt/ckckgily606gp2srzukfv1an3/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoibWFobXV0Y2Fua3VydCIsImEiOiJja2NrZ2lseTYwNmdwMnNyenVrZnYxYW4zIn0.KDcHWGT3kj16csFFJF5TiA",
-            additionalOptions: {
-              'accessToken':
-                  'pk.eyJ1IjoibWFobXV0Y2Fua3VydCIsImEiOiJja2NrZ2lseTYwNmdwMnNyenVrZnYxYW4zIn0.KDcHWGT3kj16csFFJF5TiA',
-              'id': 'mapbox.mapbox-streets-v7'
-            }),
-        new MarkerLayerOptions(
-          markers: [
-            new Marker(
-              width: 80.0,
-              height: 80.0,
-              point: new LatLng(51.5, -0.09),
-              builder: (context) => new Container(
-                child: RaisedButton(
-                  color: Colors.blue,
-                  onPressed: () {
-                    print('Marker tapped');
-                  },
-                ),
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
   }
 }
 
