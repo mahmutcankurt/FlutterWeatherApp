@@ -1,18 +1,9 @@
-//IMPORT EDİLEN FLUTTER PAKETLERİ VE KÜTÜPHANELER
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:location/location.dart';
 import 'package:flutter/services.dart';
 
-/*
-
-import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong/latlong.dart';
-
-*/
-
-//IMPORT EDİLEN KENDİ OLUŞTURDUĞUM CLASS'LAR
 import 'package:uygulama1/Weather.dart';
 import 'package:uygulama1/WeatherItem.dart';
 import 'package:uygulama1/WeatherData.dart';
@@ -23,7 +14,6 @@ void main() {
   runApp(MaterialApp(
     title: "WeatherApp",
     home: MyApp(),
-    
   ));
 }
 
@@ -33,7 +23,6 @@ class MyApp extends StatefulWidget {
   State<StatefulWidget> createState() {
     return new MyAppState();
   }
-  
 }
 
 class MyAppState extends State<MyApp> {
@@ -46,20 +35,39 @@ class MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
 
-    loadWeather();
+    triggerLoadFunction();
   }
-
 
   Future<LocationData> getLocationData() async {
     return await _location.getLocation();
   }
 
+  bool isweatherDataLoaded = false;
+  triggerLoadFunction() async {
+    await loadWeather();
+  }
+
+
+
+// HERE IS PROBLEM
   final Map<String, AssetImage> images = {
     "rain": AssetImage("assets/images/rain.jpg"),
     "clear": AssetImage("assets/images/clear.jpg"),
+    "thunderstorm": AssetImage("assets/images/thunderstorm.jpg"),
+    "drizzle": AssetImage("assets/images/drizzle.jpg"),
+    "snow": AssetImage("assets/images/snow.jpg"),
+    "clouds": AssetImage("assets/images/clouds.jpg"),
   };
 
-  
+  // ignore: non_constant_identifier_names
+  AssetImage HandleError(){
+    if(images.containsKey(weatherData.name)){
+      return images[weatherData.name];
+    }
+    else {
+      return images["clear"];
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,19 +82,22 @@ class MyAppState extends State<MyApp> {
             title: Text('Flutter Weather App'),
           ),
           body: Center(
-              child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+              child: Column(children: <Widget>[
             //BACKGROUND IMAGE
-
             Container(
+              height: 90.0,
+              width: 120.0,
               decoration: BoxDecoration(
-                image: new DecorationImage(
-                    image: weatherData == null
-                        ? images["clear"]
-                        : images[weatherData.name],
-                    fit: BoxFit.cover),
+                image: DecorationImage(
+                  image: isweatherDataLoaded //this
+                      ? HandleError()
+                      : images["clear"],
+                  fit: BoxFit.fill,
+                ),
+                shape: BoxShape.circle,
               ),
             ),
-            //END
+
 
             Expanded(
               child: Column(
@@ -109,7 +120,9 @@ class MyAppState extends State<MyApp> {
                         : IconButton(
                             icon: new Icon(Icons.refresh),
                             tooltip: 'Refresh',
-                            onPressed: loadWeather,
+                            onPressed: () async {
+                              await loadWeather();
+                            },
                             color: Colors.black,
                           ),
                   ),
@@ -138,6 +151,8 @@ class MyAppState extends State<MyApp> {
   loadWeather() async {
     setState(() {
       isLoading = true;
+
+      isweatherDataLoaded = false;
     });
 
     LocationData location;
@@ -170,26 +185,20 @@ class MyAppState extends State<MyApp> {
         return setState(() {
           weatherData =
               new WeatherData.fromJson(jsonDecode(weatherResponse.body));
+
+          isweatherDataLoaded = true;
           forecastData =
               new ForecastData.fromJson(jsonDecode(forecastResponse.body));
           isLoading = false;
+          isweatherDataLoaded = true;
         });
       }
     }
 
     setState(() {
       isLoading = false;
+
+      isweatherDataLoaded = true;
     });
   }
 }
-
-
-/*
-https://medium.com/@mustafazahidefe/git-notları-5-branch-kavramı-d176626711a4
-https://aliozgur.gitbooks.io/git101/content/branching_dallanma_ve_merging_birlestirme/degisiklikleri_merge_etmek.html
-https://pub.dev/packages/mapbox_gl
-https://account.mapbox.com/access-tokens/ckckgily606gp2srzukfv1an3
-http://tphangout.com/flutter-mapbox-and-polylines/
-https://github.com/mapbox/flutter-mapbox-gl
-https://pub.dev/packages/flutter_map
-*/

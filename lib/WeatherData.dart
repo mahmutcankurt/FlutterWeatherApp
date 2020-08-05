@@ -1,3 +1,4 @@
+
 class WeatherData {
   final DateTime date;
   final String name;
@@ -15,6 +16,7 @@ class WeatherData {
       temp: json['main']['temp'].toDouble(),
       main: json['weather'][0]['main'],
       icon: json['weather'][0]['icon'],
+      
     );
   }
 }
