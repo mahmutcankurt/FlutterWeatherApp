@@ -12,7 +12,7 @@ import 'package:uygulama1/ForecastData.dart';
 //PROJECT'S ROOT
 void main() {
   runApp(MaterialApp(
-    title: "WeatherApp",
+    title: "MCK WeatherApp",
     home: MyApp(),
   ));
 }
@@ -25,6 +25,7 @@ class MyApp extends StatefulWidget {
   }
 }
 
+//PROJECTS STATE CLASS
 class MyAppState extends State<MyApp> {
   bool isLoading = false;
   WeatherData weatherData;
@@ -47,9 +48,7 @@ class MyAppState extends State<MyApp> {
     await loadWeather();
   }
 
-
-
-// HERE IS PROBLEM
+  //BACKGROUND IMAGE
   final Map<String, AssetImage> images = {
     "rain": AssetImage("assets/images/rain.jpg"),
     "clear": AssetImage("assets/images/clear.jpg"),
@@ -60,15 +59,15 @@ class MyAppState extends State<MyApp> {
   };
 
   // ignore: non_constant_identifier_names
-  AssetImage HandleError(){
-    if(images.containsKey(weatherData.name)){
+  AssetImage HandleError() {
+    if (images.containsKey(weatherData.name)) {
       return images[weatherData.name];
-    }
-    else {
+    } else {
       return images["clear"];
     }
   }
 
+  //PROJECT BUILD
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -98,7 +97,7 @@ class MyAppState extends State<MyApp> {
               ),
             ),
 
-
+            //WEATHER DATA
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -129,6 +128,8 @@ class MyAppState extends State<MyApp> {
                 ],
               ),
             ),
+
+            //FUTURE FORECAST WEATHER DATA
             SafeArea(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -155,6 +156,7 @@ class MyAppState extends State<MyApp> {
       isweatherDataLoaded = false;
     });
 
+    //LOCATION PERMISSION CONTROL
     LocationData location;
     try {
       location = await getLocationData();
@@ -164,13 +166,13 @@ class MyAppState extends State<MyApp> {
       if (e.code == 'PERMISSION_DENIED') {
         error = 'Permission denied';
       } else if (e.code == 'PERMISSION_DENIED_NEVER_ASK') {
-        error =
-            'Permission denied - please ask the user to enable it from the app settings';
+        error = 'Permission denied - please check your location permit!';
       }
 
       location = null;
     }
 
+    //LOCATION AND WEATHER IMPLEMENT
     if (location != null) {
       final lat = location.latitude;
       final lon = location.longitude;

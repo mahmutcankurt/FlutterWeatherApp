@@ -1,4 +1,3 @@
-
 class WeatherData {
   final DateTime date;
   final String name;
